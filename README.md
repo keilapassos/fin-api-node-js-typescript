@@ -18,7 +18,7 @@ A aplicação original possuia Node.Js com Express, e os códigos ficavam apenas
 
 Para exercitar a organização do projeto, decidi separar por diretórios, com controller, services e routes. Adicionei Typescript a este projeto para poder praticá-lo mais.
 
-Como resultado, apesar de ser uma aplicação simples pude trabalhar com alguns conceitos como <b>middleware</b>, pude praticar o <b>Typescript</b>, usei <b>padrão MVC</b> e pude usar o raciocínio lógico para resolver problemas que apareciam. 
+Como resultado, apesar de ser uma aplicação simples pude trabalhar com alguns conceitos como <b>middleware</b>, pude praticar o <b>Typescript</b>, e pude usar o raciocínio lógico para resolver problemas que apareciam. 
 
 Abaixo estão os requisitos e regras de negócio que a aplicação pedia. 
 Em seguida, estarão listadas instruções para baixar e rodar este projeto localmente, em sua máquina. A seguir, estarão as rotas e os resultados esperados das requisições.
@@ -123,7 +123,7 @@ URL base:
 </div>
 
 - error - 400
-- cliente já existe
+- ao tentar cadastrar um cliente que já existe
 <div align="center">
 <img alt="" src="./images/post-account-error.png" />
 </div>
@@ -134,12 +134,13 @@ URL base:
 <b>GET /account</b>
 
 - sucesso - 200 ok
+- obrigatório inserir CPF no headers
 <div align="center">
 <img alt="" src="./images/get-account-ok.png" />
 </div>
 
 - error - 400 
-- cliente não encontrado
+- quando o CPF do cliente não encontrado
 <div align="center">
 <img alt="" src="./images/get-account-headers-error.png" />
 </div>
@@ -155,12 +156,13 @@ URL base:
 </div>
 
 - sucesso - 200 ok
+- obrigatório inserir CPF no headers
 <div align="center">
 <img alt="" src="./images/put-account-headers-ok.png" />
 </div>
 
 - error - 400
-- cliente não encontrado
+- quando o CPF do cliente não encontrado
 <div align="center">
 <img alt="" src="./images/get-account-headers-error.png" />
 </div>
@@ -171,12 +173,13 @@ URL base:
 <b>DELETE /account</b>
 
 - sucesso - 200 ok
+- obrigatório inserir CPF no headers
 <div align="center">
 <img alt="" src="./images/delete-account-headers-ok.png" />
 </div>
 
 - error - 400
-- cliente não encontrado
+- quando o CPF do cliente não encontrado
 <div align="center">
 <img alt="" src="./images/delete-account-error.png" />
 </div>
@@ -187,15 +190,10 @@ URL base:
 <b>GET /statement</b>
 
 - sucesso - 200 ok
+- obrigatório inserir CPF no headers
 - inicia com array vazio
 <div align="center">
 <img alt="" src="./images/get-statement-initial.png" />
-</div>
-
-- sucesso - 200 ok
-- após realizar operações de crédito
-<div align="center">
-<img alt="" src="./images/get-statement-deposits.png" />
 </div>
 
 - sucesso - 200 ok
@@ -207,27 +205,36 @@ URL base:
 ---
 <br>
 
-<b>POST /deposit</b>
+<b>GET /statement/date</b>
 
 - sucesso - 200 ok
+- obrigatório inserir CPF no headers
+- obrigatório inserir query param <strong>date</strong>. O query pode ser passado tanto na url como: http://localhost:3000/statement/date?date=2022-12-01 ou pela aba query do seu API Client
+- se a data não for encontrada, retorna um array vazio
 <div align="center">
-<img alt="" src="./images/post-deposit-headers.png" />
+<img alt="" src="./images/get-statement-initial.png" />
 </div>
 
 - sucesso - 200 ok
-- depositando a primeira vez
+- após realizar operações de depósito(crédito) e saque(débito)
+<div align="center">
+<img alt="" src="./images/get-statement-deb-cre.png" />
+</div>
+
+---
+<br>
+
+<b>POST /deposit</b>
+
+- sucesso - 200 ok
+- obrigatório inserir CPF no headers
+- depositando uma vez 50 reais
 <div align="center">
 <img alt="" src="./images/post-deposit-1.png" />
 </div>
 
-- sucesso - 200 ok
-- depositando pela segunda vez
-<div align="center">
-<img alt="" src="./images/post-deposit-2.png" />
-</div>
-
 - error - 400
-- cliente não encontrado
+- quando o CPF do cliente não encontrado
 <div align="center">
 <img alt="" src="./images/post-deposit-headers-error.png" />
 </div>
@@ -240,17 +247,14 @@ URL base:
 withdraw = saque/retirada de dinheiro
 
 - sucesso - 200 ok
+- obrigatório inserir CPF no headers
+- saque de 10 reais
 <div align="center">
-<img alt="" src="./images/post-withdraw-body.png" />
-</div>
-
-- sucesso - 200 ok
-<div align="center">
-<img alt="" src="./images/post-withdraw-headers.png" />
+<img alt="" src="./images/post-withdraw-1.png" />
 </div>
 
 - error - 400
-- cliente não encontrado
+- quando o CPF do cliente não encontrado
 <div align="center">
 <img alt="" src="./images/post-withdraw-headers-error.png" />
 </div>
@@ -261,13 +265,14 @@ withdraw = saque/retirada de dinheiro
 <b>GET /balance</b>
 
 - sucesso - 200 ok
+- obrigatório inserir CPF no headers
 - mostra o total disponível
 <div align="center">
-<img alt="" src="./images/get-balance-headers.png" />
+<img alt="" src="./images/get-balance-headers-ok.png" />
 </div>
 
 - error - 400
-- cliente não encontrado
+- quando o CPF do cliente não encontrado
 <div align="center">
 <img alt="" src="./images/get-balance-headers-error.png" />
 </div>
