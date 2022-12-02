@@ -288,10 +288,6 @@ withdraw = saque/retirada de dinheiro
 [Linkedin](https://www.linkedin.com/in/keila-aparecida-rodrigues-passos/)
 
 [Perfil do Github](https://github.com/keilapassos)
-
-<h4><i>Projeto em desenvolvimento/refatoração</i></h4>
-</div>
-
 ---
 
 
